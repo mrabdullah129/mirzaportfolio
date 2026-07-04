@@ -220,15 +220,18 @@ const counterObserver = new IntersectionObserver((entries) => {
     if (!entry.isIntersecting) return;
     const el = entry.target;
     const text = el.textContent;
-    const num = parseInt(text);
-    const suffix = text.replace(/\d/g, '');
+    const num = parseFloat(text);
+    const suffix = text.replace(/[\d.]/g, '');
+    const isDecimal = text.includes('.');
+    const decimals = isDecimal ? (text.split('.')[1] || '').replace(/\D/g, '').length : 0;
     let start = 0;
     const duration = 1500;
-    const step = Math.ceil(num / (duration / 16));
+    const steps = duration / 16;
+    const step = num / steps;
 
     const tick = () => {
       start = Math.min(start + step, num);
-      el.textContent = start + suffix;
+      el.textContent = (isDecimal ? start.toFixed(decimals) : Math.ceil(start)) + suffix;
       if (start < num) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
