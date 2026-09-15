@@ -33,30 +33,91 @@
   <!-- ===== BLOG HERO ===== -->
   <section class="blog-hero">
     <div class="blog-hero-bg">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
+      <div class="bh-glow bh-glow-1"></div>
+      <div class="bh-glow bh-glow-2"></div>
+      <div class="bh-glow bh-glow-3"></div>
     </div>
     <div class="container">
-      <div class="blog-hero-inner">
-        <a href="index.html" class="blog-back-link">
-          <i class="fas fa-arrow-left"></i> Back to Portfolio
-        </a>
-        <div class="blog-meta-row">
-          <span class="blog-category-pill"><i class="fas fa-solar-panel"></i> Machine Learning</span>
-          <span class="blog-meta-date"><i class="fas fa-calendar-alt"></i> 2025</span>
-          <span class="blog-meta-read"><i class="fas fa-clock"></i> 8 min read</span>
+      <div class="blog-hero-grid">
+
+        <!-- ── LEFT: Content ── -->
+        <div class="blog-hero-content">
+          <a href="index.html" class="blog-back-link" aria-label="Back to Portfolio">
+            <i class="fas fa-arrow-left"></i><span>Back to Portfolio</span>
+          </a>
+
+          <div class="blog-meta-row">
+            <span class="blog-category-pill"><i class="fas fa-solar-panel" aria-hidden="true"></i> Machine Learning</span>
+            <span class="blog-meta-sep" aria-hidden="true"></span>
+            <span class="blog-meta-item"><i class="fas fa-calendar-alt" aria-hidden="true"></i> 2025</span>
+            <span class="blog-meta-sep" aria-hidden="true"></span>
+            <span class="blog-meta-item"><i class="fas fa-clock" aria-hidden="true"></i> 8 min read</span>
+          </div>
+
+          <h1 class="blog-hero-title">Solar Plant AC Power Prediction: On-site Sensors vs. Public Weather Data</h1>
+
+          <p class="blog-hero-desc">Can public weather data predict solar plant power as accurately as on-site sensors? In this project, I compared sensor-based and public-weather-based linear regression models using real solar plant data and evaluated their performance using Normal Equation, Batch Gradient Descent, and Stochastic Gradient Descent.</p>
+
+          <div class="blog-tech-pills" role="list" aria-label="Technologies used">
+            <span role="listitem"><i class="fab fa-python" aria-hidden="true"></i> Python</span>
+            <span role="listitem"><i class="fas fa-calculator" aria-hidden="true"></i> NumPy</span>
+            <span role="listitem"><i class="fas fa-table" aria-hidden="true"></i> Pandas</span>
+            <span role="listitem"><i class="fas fa-chart-line" aria-hidden="true"></i> Matplotlib</span>
+            <span role="listitem"><i class="fas fa-stream" aria-hidden="true"></i> Streamlit</span>
+            <span role="listitem"><i class="fas fa-cloud-sun" aria-hidden="true"></i> Open-Meteo API</span>
+          </div>
         </div>
-        <h1 class="blog-hero-title">Solar Plant AC Power Prediction: On-site Sensors vs. Public Weather Data</h1>
-        <p class="blog-hero-desc">Can public weather data predict solar plant power as accurately as on-site sensors? In this project, I compared sensor-based and public-weather-based linear regression models using real solar plant data and evaluated their performance using Normal Equation, Batch Gradient Descent, and Stochastic Gradient Descent.</p>
-        <div class="blog-tech-pills">
-          <span><i class="fab fa-python"></i> Python</span>
-          <span><i class="fas fa-calculator"></i> NumPy</span>
-          <span><i class="fas fa-table"></i> Pandas</span>
-          <span><i class="fas fa-chart-line"></i> Matplotlib</span>
-          <span><i class="fas fa-stream"></i> Streamlit</span>
-          <span><i class="fas fa-cloud-sun"></i> Open-Meteo API</span>
+
+        <!-- ── RIGHT: Decorative Visual ── -->
+        <div class="blog-hero-visual" aria-hidden="true">
+          <div class="bh-visual-wrap">
+            <!-- Outer ring -->
+            <div class="bh-ring bh-ring-outer"></div>
+            <div class="bh-ring bh-ring-mid"></div>
+            <!-- Center icon -->
+            <div class="bh-center-icon">
+              <i class="fas fa-solar-panel"></i>
+            </div>
+            <!-- Floating data nodes -->
+            <div class="bh-node bh-node-1"><i class="fas fa-wave-square"></i></div>
+            <div class="bh-node bh-node-2"><i class="fas fa-chart-line"></i></div>
+            <div class="bh-node bh-node-3"><i class="fas fa-brain"></i></div>
+            <div class="bh-node bh-node-4"><i class="fas fa-sun"></i></div>
+            <!-- SVG grid lines -->
+            <svg class="bh-grid-svg" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="gridFade" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#00D9FF" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="#00D9FF" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <!-- Radial lines -->
+              <line x1="160" y1="160" x2="160" y2="20"  stroke="url(#gridFade)" stroke-width="1"/>
+              <line x1="160" y1="160" x2="280" y2="80"  stroke="url(#gridFade)" stroke-width="1"/>
+              <line x1="160" y1="160" x2="300" y2="160" stroke="url(#gridFade)" stroke-width="1"/>
+              <line x1="160" y1="160" x2="280" y2="240" stroke="url(#gridFade)" stroke-width="1"/>
+              <line x1="160" y1="160" x2="160" y2="300" stroke="url(#gridFade)" stroke-width="1"/>
+              <line x1="160" y1="160" x2="40"  y2="240" stroke="url(#gridFade)" stroke-width="1"/>
+              <line x1="160" y1="160" x2="20"  y2="160" stroke="url(#gridFade)" stroke-width="1"/>
+              <line x1="160" y1="160" x2="40"  y2="80"  stroke="url(#gridFade)" stroke-width="1"/>
+              <!-- Circles -->
+              <circle cx="160" cy="160" r="60"  fill="none" stroke="#00D9FF" stroke-width="0.5" stroke-opacity="0.15"/>
+              <circle cx="160" cy="160" r="100" fill="none" stroke="#7B2BFF" stroke-width="0.5" stroke-opacity="0.12"/>
+              <circle cx="160" cy="160" r="140" fill="none" stroke="#00D9FF" stroke-width="0.5" stroke-opacity="0.08"/>
+              <!-- Data dots on outer circle -->
+              <circle cx="160" cy="20"  r="3" fill="#00D9FF" fill-opacity="0.5"/>
+              <circle cx="280" cy="80"  r="3" fill="#7B2BFF" fill-opacity="0.5"/>
+              <circle cx="300" cy="160" r="3" fill="#00D9FF" fill-opacity="0.5"/>
+              <circle cx="280" cy="240" r="3" fill="#7B2BFF" fill-opacity="0.5"/>
+              <circle cx="160" cy="300" r="3" fill="#00D9FF" fill-opacity="0.5"/>
+              <circle cx="40"  cy="240" r="3" fill="#7B2BFF" fill-opacity="0.5"/>
+              <circle cx="20"  cy="160" r="3" fill="#00D9FF" fill-opacity="0.5"/>
+              <circle cx="40"  cy="80"  r="3" fill="#7B2BFF" fill-opacity="0.5"/>
+            </svg>
+          </div>
         </div>
-      </div>
+
+      </div><!-- .blog-hero-grid -->
     </div>
   </section>
 
