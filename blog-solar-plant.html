@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Solar Plant AC Power Prediction — Mirza Abdul Rehman</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="blog.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Mirza<span>.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+        <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== BLOG HERO ===== -->
+  <section class="blog-hero">
+    <div class="blog-hero-bg">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+    <div class="container">
+      <div class="blog-hero-inner">
+        <a href="index.html" class="blog-back-link">
+          <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+        <div class="blog-meta-row">
+          <span class="blog-category-pill"><i class="fas fa-solar-panel"></i> Machine Learning</span>
+          <span class="blog-meta-date"><i class="fas fa-calendar-alt"></i> 2025</span>
+          <span class="blog-meta-read"><i class="fas fa-clock"></i> 8 min read</span>
+        </div>
+        <h1 class="blog-hero-title">Solar Plant AC Power Prediction: On-site Sensors vs. Public Weather Data</h1>
+        <p class="blog-hero-desc">Can public weather data predict solar plant power as accurately as on-site sensors? In this project, I compared sensor-based and public-weather-based linear regression models using real solar plant data and evaluated their performance using Normal Equation, Batch Gradient Descent, and Stochastic Gradient Descent.</p>
+        <div class="blog-tech-pills">
+          <span><i class="fab fa-python"></i> Python</span>
+          <span><i class="fas fa-calculator"></i> NumPy</span>
+          <span><i class="fas fa-table"></i> Pandas</span>
+          <span><i class="fas fa-chart-line"></i> Matplotlib</span>
+          <span><i class="fas fa-stream"></i> Streamlit</span>
+          <span><i class="fas fa-cloud-sun"></i> Open-Meteo API</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOG CONTENT ===== -->
+  <main class="blog-main">
+    <div class="container">
+      <div class="blog-layout">
+
+        <!-- ── MAIN CONTENT ── -->
+        <article class="blog-article">
+
+          <!-- Introduction -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">01</span> Introduction</h2>
+            <p>Solar power generation changes continuously with sunlight, temperature, cloud conditions, and other environmental factors. Accurate prediction of solar plant AC power can help improve energy planning, monitoring, and operational decision-making.</p>
+            <p>In this project, I investigated an important question: <strong>Can nearby public weather data provide predictions comparable to measurements collected directly from the solar plant?</strong></p>
+            <p>To answer this, I developed linear regression models using two different feature sets: one based on on-site plant sensors and another based on public weather data from Open-Meteo.</p>
+          </section>
+
+          <!-- Dataset & Preparation -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">02</span> Dataset &amp; Data Preparation</h2>
+            <p>The project uses Plant 1 generation and weather sensor data. The generation data contains inverter-level AC power measurements, while the sensor data provides irradiation, module temperature, and ambient temperature.</p>
+            <p>Public weather information was obtained from the <strong>Open-Meteo API</strong>, including shortwave radiation, temperature at 2 metres, and cloud cover.</p>
+            <p>The data preparation process included:</p>
+            <ul class="blog-list">
+              <li><i class="fas fa-check-circle"></i> Merging generation and sensor data using timestamps</li>
+              <li><i class="fas fa-check-circle"></i> Aggregating inverter-level generation to plant-level AC power</li>
+              <li><i class="fas fa-check-circle"></i> Resampling the data to hourly intervals</li>
+              <li><i class="fas fa-check-circle"></i> Checking and handling missing values</li>
+              <li><i class="fas fa-check-circle"></i> Adding time-based features using sine and cosine transformations</li>
+              <li><i class="fas fa-check-circle"></i> Standardizing features using statistics calculated only from the training data</li>
+            </ul>
+          </section>
+
+          <!-- Feature Sets -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">03</span> Feature Sets</h2>
+            <div class="feature-sets-grid">
+              <div class="feature-set-card set-a">
+                <div class="feature-set-header">
+                  <div class="feature-set-badge">Set A</div>
+                  <h3>On-site Sensors</h3>
+                </div>
+                <ul>
+                  <li><i class="fas fa-sun"></i> Irradiation</li>
+                  <li><i class="fas fa-thermometer-half"></i> Module Temperature</li>
+                  <li><i class="fas fa-temperature-low"></i> Ambient Temperature</li>
+                  <li><i class="fas fa-clock"></i> Hour sine</li>
+                  <li><i class="fas fa-clock"></i> Hour cosine</li>
+                </ul>
+              </div>
+              <div class="feature-set-card set-b">
+                <div class="feature-set-header">
+                  <div class="feature-set-badge set-b-badge">Set B</div>
+                  <h3>Public Weather</h3>
+                </div>
+                <ul>
+                  <li><i class="fas fa-radiation"></i> Shortwave Radiation</li>
+                  <li><i class="fas fa-thermometer-half"></i> Temperature at 2 metres</li>
+                  <li><i class="fas fa-cloud"></i> Cloud Cover</li>
+                  <li><i class="fas fa-clock"></i> Hour sine</li>
+                  <li><i class="fas fa-clock"></i> Hour cosine</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Image 2: AC Power vs Irradiation + Average AC Power by Hour — below Set A & B cards -->
+            <figure class="blog-figure blog-figure-full" data-aos>
+              <img src="images/ac_power_vs_irradiation + average_ac_power_by_hour.webp" alt="AC Power vs Irradiation and Average AC Power by Hour" loading="lazy"/>
+              <figcaption><i class="fas fa-chart-line"></i> AC Power vs Irradiation &amp; Average AC Power by Hour</figcaption>
+            </figure>
+
+            <p class="feature-note">This allowed a direct comparison between plant-specific measurements and nearby public weather information.</p>
+          </section>
+
+          <!-- Machine Learning Methodology -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">04</span> Machine Learning Methodology</h2>
+            <p>I implemented linear regression manually using <strong>NumPy</strong>, without relying on machine-learning libraries for the core optimization.</p>
+            <p>Three approaches were evaluated:</p>
+
+            <div class="method-cards">
+              <div class="method-card" data-aos>
+                <div class="method-icon"><i class="fas fa-equals"></i></div>
+                <h3>Normal Equation</h3>
+                <p>A direct analytical solution for the regression parameters.</p>
+              </div>
+              <div class="method-card" data-aos>
+                <div class="method-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Batch Gradient Descent</h3>
+                <p>The model parameters were updated using the complete training dataset at each iteration.</p>
+              </div>
+              <div class="method-card" data-aos>
+                <div class="method-icon"><i class="fas fa-random"></i></div>
+                <h3>Stochastic Gradient Descent</h3>
+                <p>The parameters were updated using individual training samples, making it more suitable for very large datasets.</p>
+              </div>
+            </div>
+
+            <p>Stochastic Gradient Descent updates the parameters one training example at a time. Although its optimization path is more variable, it is more practical for very large datasets because it does not require the complete dataset for every update.</p>
+
+            <!-- Images 3 & 4: After SGD content -->
+            <div class="blog-images-row" data-aos>
+              <figure class="blog-figure">
+                <img src="images/batch_gd_learning_rates s.webp" alt="Batch Gradient Descent learning rates comparison" loading="lazy"/>
+                <figcaption><i class="fas fa-chart-line"></i> Batch GD Learning Rates</figcaption>
+              </figure>
+              <figure class="blog-figure">
+                <img src="images/+ sgd_learning_rate.webp" alt="Stochastic Gradient Descent learning rates comparison" loading="lazy"/>
+                <figcaption><i class="fas fa-chart-line"></i> SGD Learning Rates</figcaption>
+              </figure>
+            </div>
+
+            <div class="blog-info-box" data-aos>
+              <i class="fas fa-info-circle"></i>
+              <div>
+                <strong>Data Split</strong>
+                <p>The data was split chronologically — Training: <strong>15 May – 10 June 2020</strong> &nbsp;|&nbsp; Testing: <strong>11 June – 17 June 2020</strong>. No shuffling was used because the data is time-series data.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Results -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">05</span> Results</h2>
+            <p>The results showed a significant performance difference between the two feature sets.</p>
+
+            <div class="results-tables">
+              <div class="result-table-wrap" data-aos>
+                <h4>Overall RMSE</h4>
+                <table class="blog-table">
+                  <thead>
+                    <tr>
+                      <th>Model</th>
+                      <th>Best Overall RMSE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="row-winner">
+                      <td><span class="set-pill set-a-pill">Set A</span> On-site Sensors</td>
+                      <td class="val-good">539.46 kW</td>
+                    </tr>
+                    <tr>
+                      <td><span class="set-pill set-b-pill">Set B</span> Public Weather</td>
+                      <td class="val-bad">2572.66 kW</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="result-table-wrap" data-aos>
+                <h4>Daytime RMSE (06:00–18:00)</h4>
+                <table class="blog-table">
+                  <thead>
+                    <tr>
+                      <th>Feature Set</th>
+                      <th>Daytime RMSE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="row-winner">
+                      <td><span class="set-pill set-a-pill">Set A</span> Sensors</td>
+                      <td class="val-good">704.46 kW</td>
+                    </tr>
+                    <tr>
+                      <td><span class="set-pill set-b-pill">Set B</span> Public Weather</td>
+                      <td class="val-bad">3148.71 kW</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="stats-highlight-row" data-aos>
+              <div class="stat-highlight">
+                <span class="sh-num">376.90%</span>
+                <span class="sh-label">Higher RMSE for public-weather model</span>
+              </div>
+              <div class="stat-highlight">
+                <span class="sh-num">27,325.90 kW</span>
+                <span class="sh-label">Plant's peak hourly AC power</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Why Sensors Performed Better -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">06</span> Why Did On-site Sensors Perform Better?</h2>
+            <p>The main reason is that on-site sensors measure the actual conditions at the solar plant.</p>
+            <p>Public weather data represents conditions at a nearby geographical location. It may therefore fail to capture local effects such as:</p>
+            <div class="local-effects-grid">
+              <div class="local-effect-item"><i class="fas fa-cloud"></i><span>Local cloud movement</span></div>
+              <div class="local-effect-item"><i class="fas fa-tree"></i><span>Shading</span></div>
+              <div class="local-effect-item"><i class="fas fa-thermometer-three-quarters"></i><span>Plant-specific temperature conditions</span></div>
+              <div class="local-effect-item"><i class="fas fa-sun"></i><span>Short-term irradiation changes</span></div>
+              <div class="local-effect-item"><i class="fas fa-wind"></i><span>Other micro-climate effects</span></div>
+            </div>
+            <p>This explains why the sensor-based feature set produced substantially more accurate predictions.</p>
+          </section>
+
+          <!-- Actual vs Predicted -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">07</span> Actual vs. Predicted Power</h2>
+            <p>The predicted and actual AC power values were also compared over the test week. The sensor-based model was able to follow the actual generation pattern more closely, while the public-weather model showed larger deviations.</p>
+
+            <!-- Image 5: Actual vs Predicted Test Week -->
+            <figure class="blog-figure blog-figure-full" data-aos>
+              <img src="images/actual_vs_predicted_test_week.webp" alt="Actual vs Predicted AC power over the test week" loading="lazy"/>
+              <figcaption><i class="fas fa-chart-line"></i> Actual vs Predicted — Test Week</figcaption>
+            </figure>
+          </section>
+
+          <!-- Residual Analysis -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">08</span> Residual Analysis</h2>
+            <p>The largest residuals were mainly observed between <strong>10 AM and 3 PM</strong>, which corresponds to the period of high solar generation.</p>
+            <p>During these hours, rapid changes in irradiation and cloud conditions can cause the actual power output to differ from the linear model's prediction.</p>
+            <p>Other possible factors include temperature effects, shading, and inverter behaviour that are not fully represented by the simple linear regression model.</p>
+            <p>The residual analysis therefore suggests that the model performs best when the relationship between the input weather conditions and power output is relatively stable, while more complex conditions during peak generation hours can produce larger prediction errors.</p>
+
+            <!-- Image 6: Residuals vs Hour -->
+            <figure class="blog-figure blog-figure-full" data-aos>
+              <img src="images/residuals_vs_hour.webp" alt="Residuals vs Hour of Day" loading="lazy"/>
+              <figcaption><i class="fas fa-chart-bar"></i> Residuals vs Hour of Day</figcaption>
+            </figure>
+          </section>
+
+          <!-- Solver Comparison -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">09</span> Solver Comparison</h2>
+            <p>For this relatively small dataset, the <strong>Normal Equation</strong> is a practical choice because it provides a direct solution without requiring many iterations.</p>
+            <p>However, for extremely large datasets, <strong>Stochastic Gradient Descent</strong> becomes more attractive because it processes individual samples and can scale better.</p>
+            <p>In this experiment, the Batch Gradient Descent parameters did not exactly match the Normal Equation solution after the selected number of iterations, showing that iterative optimization depends on learning rate and convergence.</p>
+          </section>
+
+          <!-- Key Takeaways -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">10</span> Key Takeaways</h2>
+            <div class="takeaways-grid">
+              <div class="takeaway-card" data-aos>
+                <div class="takeaway-num">01</div>
+                <h3>On-site measurements matter.</h3>
+                <p>Plant-specific sensor data produced substantially better predictions than public weather data.</p>
+              </div>
+              <div class="takeaway-card" data-aos>
+                <div class="takeaway-num">02</div>
+                <h3>Public weather data still has value.</h3>
+                <p>It can be useful for preliminary estimates and remote forecasting when plant sensors are unavailable.</p>
+              </div>
+              <div class="takeaway-card" data-aos>
+                <div class="takeaway-num">03</div>
+                <h3>Model choice depends on dataset size.</h3>
+                <p>Normal Equation is convenient for smaller datasets, while SGD is more suitable for very large datasets.</p>
+              </div>
+              <div class="takeaway-card" data-aos>
+                <div class="takeaway-num">04</div>
+                <h3>Solar power is highly sensitive to local conditions.</h3>
+                <p>Clouds, irradiation changes, temperature, and micro-climate effects can significantly influence prediction accuracy.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Conclusion -->
+          <section class="blog-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent">11</span> Conclusion</h2>
+            <div class="conclusion-box">
+              <p>This project demonstrates that replacing on-site solar plant measurements with public weather data can significantly reduce prediction accuracy.</p>
+              <p>The best sensor-based model achieved an RMSE of <strong>539.46 kW</strong>, compared with <strong>2572.66 kW</strong> for the best public-weather model.</p>
+              <p>Overall, the results show that on-site sensor measurements are substantially more reliable for accurate plant-level solar power prediction, while public weather data can serve as a useful secondary source for preliminary or remote estimation.</p>
+            </div>
+          </section>
+
+          <!-- Project Repository -->
+          <section class="blog-section blog-repo-section" data-aos>
+            <h2 class="blog-section-title"><span class="title-accent"><i class="fab fa-github"></i></span> Project Repository</h2>
+            <div class="repo-card">
+              <div class="repo-card-icon"><i class="fab fa-github"></i></div>
+              <div class="repo-card-info">
+                <h3>Solar Plant AC Power Prediction</h3>
+                <p>Source code, notebooks, and Streamlit app for the full analysis.</p>
+                <div class="repo-tech-row">
+                  <span>Python</span>
+                  <span>NumPy</span>
+                  <span>Pandas</span>
+                  <span>Matplotlib</span>
+                  <span>Streamlit</span>
+                  <span>Open-Meteo API</span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary repo-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i> View on GitHub
+              </a>
+            </div>
+          </section>
+
+        </article>
+
+        <!-- ── SIDEBAR ── -->
+        <aside class="blog-sidebar">
+          <div class="sidebar-card sticky-sidebar">
+            <h4 class="sidebar-title">Table of Contents</h4>
+            <nav class="toc-nav">
+              <a href="#" class="toc-link" data-section="intro">01. Introduction</a>
+              <a href="#" class="toc-link" data-section="dataset">02. Dataset &amp; Preparation</a>
+              <a href="#" class="toc-link" data-section="features">03. Feature Sets</a>
+              <a href="#" class="toc-link" data-section="methodology">04. Methodology</a>
+              <a href="#" class="toc-link" data-section="results">05. Results</a>
+              <a href="#" class="toc-link" data-section="why">06. Why Sensors?</a>
+              <a href="#" class="toc-link" data-section="predicted">07. Actual vs. Predicted</a>
+              <a href="#" class="toc-link" data-section="residual">08. Residual Analysis</a>
+              <a href="#" class="toc-link" data-section="solver">09. Solver Comparison</a>
+              <a href="#" class="toc-link" data-section="takeaways">10. Key Takeaways</a>
+              <a href="#" class="toc-link" data-section="conclusion">11. Conclusion</a>
+            </nav>
+          </div>
+
+          <div class="sidebar-card" data-aos>
+            <h4 class="sidebar-title">Technologies Used</h4>
+            <div class="sidebar-tech-list">
+              <span><i class="fab fa-python"></i> Python</span>
+              <span><i class="fas fa-calculator"></i> NumPy</span>
+              <span><i class="fas fa-table"></i> Pandas</span>
+              <span><i class="fas fa-chart-line"></i> Matplotlib</span>
+              <span><i class="fas fa-stream"></i> Streamlit</span>
+              <span><i class="fas fa-cloud-sun"></i> Open-Meteo API</span>
+            </div>
+          </div>
+
+          <div class="sidebar-card" data-aos>
+            <h4 class="sidebar-title">Quick Stats</h4>
+            <div class="sidebar-stats">
+              <div class="sidebar-stat">
+                <span class="ss-val">539.46 kW</span>
+                <span class="ss-label">Best RMSE (Set A)</span>
+              </div>
+              <div class="sidebar-stat">
+                <span class="ss-val">2572.66 kW</span>
+                <span class="ss-label">Best RMSE (Set B)</span>
+              </div>
+              <div class="sidebar-stat">
+                <span class="ss-val">376.90%</span>
+                <span class="ss-label">Higher error (Set B vs Set A)</span>
+              </div>
+              <div class="sidebar-stat">
+                <span class="ss-val">27,325 kW</span>
+                <span class="ss-label">Peak hourly AC power</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </div><!-- .blog-layout -->
+    </div><!-- .container -->
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="footer-logo">Mirza<span>.</span></p>
+        <p class="footer-text">Crafted with <i class="fas fa-heart"></i> by Mirza Abdul Rehman — 2025</p>
+        <div class="footer-links">
+          <a href="index.html#home">Home</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="blog.js"></script>
+</body>
+</html>
