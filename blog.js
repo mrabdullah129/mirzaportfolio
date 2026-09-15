@@ -81,32 +81,5 @@ backToTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-/* =============================================
-   TABLE OF CONTENTS — highlight active section
-   ============================================= */
-const blogSections = document.querySelectorAll('.blog-section');
-const tocLinks = document.querySelectorAll('.toc-link');
 
-// Map sections by order to TOC links
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const idx = Array.from(blogSections).indexOf(entry.target);
-      tocLinks.forEach(l => l.classList.remove('active'));
-      if (tocLinks[idx]) tocLinks[idx].classList.add('active');
-    }
-  });
-}, { threshold: 0.4, rootMargin: '-60px 0px -40% 0px' });
 
-blogSections.forEach(sec => observer.observe(sec));
-
-// TOC click — smooth scroll to section
-tocLinks.forEach((link, i) => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (blogSections[i]) {
-      const top = blogSections[i].getBoundingClientRect().top + window.scrollY - 90;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  });
-});
